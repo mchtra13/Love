@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Secure Terminal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      background-color: black;
+      color: #00ff00;
+      font-family: monospace;
+      font-size: 16px;
+      padding: 20px;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+    #terminal {
+      white-space: pre-line;
+    }
+    .cursor {
+      display: inline-block;
+      width: 10px;
+      background-color: #00ff00;
+      animation: blink 0.8s infinite;
+    }
+    @keyframes blink {
+      0%, 50%, 100% { opacity: 1; }
+      25%, 75% { opacity: 0; }
+    }
+    #love {
+      display: none;
+      color: pink;
+      font-size: 18px;
+      margin-top: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin-top: 10px;
+      background-color: #00ff00;
+      color: black;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div id="terminal"></div><div class="cursor" id="cursor"></div>
+  <div id="love">
+    <p id="line1"></p>
+    <p>I’ve hacked many systems... but your smile hacked my heart.</p>
+    <p>There’s no firewall strong enough to block my feelings.</p>
+    <p>Will you be mine?</p>
+    <button onclick="alert('Request accepted. Heart connected!')">Accept Love</button>
+  </div>
+
+  <audio id="typeSound" src="https://www.soundjay.com/mechanical/typewriter-1.mp3" preload="auto"></audio>
+
+  <script>
+    const terminalLines = [
+      "Connecting to secure server...",
+      "Establishing encrypted channel...",
+      "Bypassing firewall...",
+      "Injecting payload...",
+      "Accessing: target_personal_data.db",
+      "Extracting sensitive files...",
+      "SUCCESS: File found [love_confession.txt]",
+      "",
+      "cat love_confession.txt"
+    ];
+
+    const confession = document.getElementById("love");
+    const terminal = document.getElementById("terminal");
+    const cursor = document.getElementById("cursor");
+    const audio = document.getElementById("typeSound");
+    const line1 = document.getElementById("line1");
+
+    let i = 0;
+    let targetName = prompt("Masukkan nama target cintamu:");
+
+    function typeLine() {
+      if (i < terminalLines.length) {
+        terminal.innerHTML += terminalLines[i] + "\n";
+        audio.currentTime = 0;
+        audio.play();
+        i++;
+        setTimeout(typeLine, 1000);
+      } else {
+        cursor.style.display = "none";
+        line1.innerText = `Dear ${targetName || 'you'},`;
+        confession.style.display = "block";
+      }
+    }
+
+    typeLine();
+  </script>
+</body>
+</html>
